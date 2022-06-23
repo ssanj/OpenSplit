@@ -1,31 +1,45 @@
 import sublime
 import sublime_plugin
 from typing import Optional
-
+from OpenSplit.target_file import TargetFile
 
 class OpenSplitCommand(sublime_plugin.TextCommand):
   def run(self, edit):
     view = self.view
     window = view.window()
 
-    if (text := self.has_selected_word(view.sel())) is not None:
-      print(f"found symbol: {text}")
-      symbol = window.symbol_locations(text, type=sublime.SYMBOL_TYPE_DEFINITION)
+    if window:
+      if (text := self.has_selected_word(view.sel())) is not None:
+        print(f"found symbol: {text}")
+        symbol = window.symbol_locations(text, type=sublime.SYMBOL_TYPE_DEFINITION)
 
-      if len(symbol) > 0:
-        first_match = symbol[0]
-        file_name = first_match.path
-        line = first_match.row
-        column = first_match.col
-        print(f"first_match {first_match}")
-        self.create_or_focus_group1(window)
-        target_file = f"{file_name}:{line}:{column}"
-        print(f"target_file: {target_file}")
-        window.open_file(target_file, sublime.ENCODED_POSITION, group=1)
+        if len(symbol) > 0:
+          target_file = self.get_target_file(symbol[0])
+          # if the target file open in group 0?
+           # find file in group 0
+           # close file in group 0
+
+          # open file in group 1
+          self.create_or_focus_group1(window)
+          if target_file:
+            window.open_file(target_file.encoded_str(), sublime.ENCODED_POSITION, group=1)
+          else:
+            print("no valid target file")
+        else:
+          print("symbol is empty")
       else:
-        print("symbol is empty")
+        print("Invalid word selected")
     else:
-      print("Invalid word selected")
+      print("No active window found")
+
+
+  def get_target_file(self, first_match: sublime.SymbolLocation) -> TargetFile:
+    file_name = first_match.path
+    line = first_match.row
+    column = first_match.col
+    target_file = TargetFile(file_name, line, column)
+    print(f"target_file: {target_file}")
+    return target_file
 
   def create_or_focus_group1(self, window: sublime.Window) -> None:
     groups = window.num_groups()
