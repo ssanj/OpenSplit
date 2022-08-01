@@ -1,4 +1,5 @@
 [
   { "keys": ["f7"], "command": "open_split"},
   { "keys": ["shift+f7"], "command": "close_split"},
+  { "keys": ["super+f7"], "command": "open_definition"},
 ]
