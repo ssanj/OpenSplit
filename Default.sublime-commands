@@ -1,5 +1,4 @@
 [
     { "caption": "OpenSplit: open in split", "command": "open_split" },
     { "caption": "OpenSplit: close split", "command": "close_split" },
-    { "caption": "OpenSplit: Open Definition", "command": "open_definition" },
 ]
