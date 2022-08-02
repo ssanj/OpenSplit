@@ -10,7 +10,7 @@ By default only 2 groups are supported where the group opened will be below the 
 
 ## Installation
 
-- Open the command palette with `CMD + SHIT + P`
+- Open the command palette with `CMD + SHIFT + P`
 - Select `Package Control: Add Repository`
 - Enter https://github.com/ssanj/OpenSplit for the repository
 - Select `Package Control: Install Package`
