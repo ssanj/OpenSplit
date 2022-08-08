@@ -20,8 +20,8 @@ class OpenSplitCommand(sublime_plugin.TextCommand):
            # close file in group 0
 
           # open file in group 1
-          self.create_or_focus_group1(window)
-          if target_file:
+          if target_file and not self.open_in_views(window, target_file):
+            self.create_or_focus_group1(window)
             window.open_file(target_file.encoded_str(), sublime.ENCODED_POSITION, group=1)
           else:
             print("no valid target file")
@@ -32,6 +32,10 @@ class OpenSplitCommand(sublime_plugin.TextCommand):
     else:
       print("No active window found")
 
+  def open_in_views(self, window: sublime.Window, target_file: TargetFile) -> bool:
+    views = window.views()
+    found = [v for v in views if v.file_name() == target_file.file_name]
+    return len(found) > 0
 
   def get_target_file(self, first_match: sublime.SymbolLocation) -> TargetFile:
     file_name = first_match.path
