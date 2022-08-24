@@ -1,4 +1,7 @@
 [
   { "keys": ["f7"], "command": "open_split"},
   { "keys": ["shift+f7"], "command": "close_split"},
+  { "keys": ["shift+super+f7"], "command": "open_split_close_all_but"},
+  { "keys": ["ctrl+shift+down"], "command": "open_split_move_all_but"},
+  { "keys": ["ctrl+shift+up"], "command": "open_split_move_view_and_move_all_but"},
 ]

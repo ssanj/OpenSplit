@@ -3,4 +3,5 @@
     { "caption": "OpenSplit: close split", "command": "close_split" },
     { "caption": "OpenSplit: close all views except current", "command": "open_split_close_all_but" },
     { "caption": "OpenSplit: move all views except current", "command": "open_split_move_all_but" },
+    { "caption": "OpenSplit: move current view and move other views", "command": "open_split_move_view_and_move_all_but" },
 ]
