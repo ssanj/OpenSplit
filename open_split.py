@@ -19,17 +19,14 @@ class OpenSplitCommand(sublime_plugin.TextCommand):
            # find file in group 0
            # close file in group 0
 
-          # open file in group 1
           if target_file:
             if not self.open_in_views(window, target_file):
+              # focus group 1 (or create it)
               self.create_or_focus_group1(window)
               window.open_file(target_file.encoded_str(), sublime.ENCODED_POSITION, group=1)
             else:
-              view.show_popup(
-                  content = "<H1>File is already open</H1>",
-                  max_width = 640,
-                  max_height = 480,
-                  flags = sublime.HIDE_ON_CHARACTER_EVENT)
+              # focus existing view
+              window.open_file(target_file.encoded_str(), sublime.ENCODED_POSITION)
           else:
             print("no valid target file")
         else:
